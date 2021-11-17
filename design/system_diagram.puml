@@ -1,0 +1,16 @@
+@startuml Radio Collar Tracker: Collared Lizard System Diagram
+[Software Defined Radio] as SDR
+[On-Board Computer] as OBC
+[VHF Antenna] as ANT
+[LNA] as LNA
+[Data Drive] as USB
+[GPS Receiver] as GPS
+
+interface "Wifi Antenna" as WIFI_ANT
+ANT -- LNA : RF
+LNA --  SDR : Amplifed RF
+SDR --  OBC : I/Q Signal
+OBC - WIFI_ANT : Pings
+GPS - OBC : NMEA
+OBC -- USB : Recorded Signal/GPS Data
+@enduml

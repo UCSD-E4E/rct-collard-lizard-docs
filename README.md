@@ -1,2 +1,2 @@
-# rct-collard-lizard-docs
-Collard Lizard Docs
+# rct-collared-lizard-docs
+Collared Lizard Docs
