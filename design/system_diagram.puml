@@ -18,5 +18,43 @@ OBC <-> WIFI_ANT : Pings
 GPS -> OBC : NMEA
 OBC --> USB : Recorded Signal/GPS Data
 ST --> OBC : VDD1
+OBC --> ST : Sleep Control
 BATT --> ST : VEXT
+@enduml
+
+@startuml Radio Collar Tracker: Collared Lizard Wiring Diagram
+[Software Defined Radio] as SDR
+[On-Board Computer] as OBC
+[VHF Antenna] as ANT
+[LNA] as LNA
+[DC Block] as DCB
+[Data Drive] as USB
+[GPS Receiver] as GPS
+[Sleep Timer] as ST
+[Battery] as BATT
+[12V to 5V Regulator] as PRIMARY_REG
+[12V to 5V Regulator] as PERSISTENT_REG
+[Switch] as SWITCH
+
+interface "Wifi Antenna" as WIFI_ANT
+interface "Optical Isolators" as OPTO
+interface "XT30 Splitter" as XT30_SPLIT
+
+OBC --> SDR : USB 3.0 A to USB 3.0 micro B
+LNA --> ANT : SMA-M to SMA-M
+DCB --> LNA : SMA-M to SMA-M
+SDR --> DCB : SMA-M to SMA-M
+OBC --> WIFI_ANT : uFl to RP-SMA-M
+OBC --> USB : USB 2.0 A to USB Device
+PRIMARY_REG --> XT30_SPLIT : XT30-M to XT30-F
+XT30_SPLIT --> OBC : XT30-M to 5.5mm Barrel
+XT30_SPLIT --> LNA : XT30-M to USB 1.0 micro B
+BATT --> SWITCH : Lug to XT30
+SWITCH --> PRIMARY_REG : XT30-M to XT30-F
+ST --> SWITCH : 3x 0.1 in Header F to 3x 0.1 in Header F
+OPTO --> OBC : 4x 0.1 in Header F to 4x 0.1 in Header F
+ST --> OPTO : 4x 0.1 in Header F to 4x 0.1 in Header F
+PERSISTENT_REG --> ST : XT30-M to 2x 0.1 in Header F
+BATT --> PERSISTENT_REG : Lug to XT30
+OBC --> GPS : USB 2.0 A to USB Device
 @enduml
