@@ -34,12 +34,14 @@ BATT --> ST : VEXT
 [Battery] as BATT
 [12V to 5V Regulator] as PRIMARY_REG
 [12V to 5V Regulator] as PERSISTENT_REG
+[12V to 3V3 Regulator] as ISOLATION_REG
 [Switch] as SWITCH
 
 interface "Wifi Antenna" as WIFI_ANT
 interface "Optical Isolators" as OPTO
 interface "XT30 Splitter" as XT30_SPLIT
 interface "XT30 Splitter" as BATTERY_SPLITTER
+interface "XT30 Splitter" as SWITCHED_SPLITTER
 
 OBC --> SDR : USB 3.0 A to USB 3.0 micro B
 LNA --> ANT : SMA-M to SMA-M
@@ -51,7 +53,10 @@ PRIMARY_REG --> XT30_SPLIT : XT30-M to Cable
 XT30_SPLIT --> OBC : Cable to 5.5mm Barrel
 XT30_SPLIT --> LNA : Cable to USB 1.0 micro B
 BATTERY_SPLITTER --> SWITCH : Cable to XT30
-SWITCH --> PRIMARY_REG : XT30-M to XT30-F
+SWITCH --> SWITCHED_SPLITTER : XT30-M to Cable
+SWITCHED_SPLITTER --> PRIMARY_REG : Cable to XT30-F
+SWITCHED_SPLITTER --> ISOLATION_REG : Cable to XT30-F
+OPTO <-- ISOLATION_REG : 2x 0.1 in Header F to 2x 0.1 in Header F
 ST --> SWITCH : 3x 0.1 in Header F to 3x 0.1 in Header F
 OPTO --> OBC : Cable to 4x 0.1 in Header F
 ST --> OPTO : 4x 0.1 in Header F to Cable

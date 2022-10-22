@@ -125,12 +125,13 @@ P2.4 <-> U1.4
 | Cable Length  | 120.0 in |
 
 # Switched 12V Cable
-| Parameter     | Value  |
-|---------------|--------|
-| Termination 1 | XT30-M |
-| Termination 2 | XT30-F |
-| Cable Type    | 16 AWG |
-| Cable Length  | 3.0 in |
+| Parameter      | Value  |
+|----------------|--------|
+| Termination 1  | XT30-M |
+| Termination 2a | XT30-F |
+| Termination 2b | XT30-F |
+| Cable Type     | 16 AWG |
+| Cable Length   | 3.0 in |
 
 # Switched 5V Splitter
 | Parameter      | Value             |
