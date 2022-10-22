@@ -39,6 +39,7 @@ BATT --> ST : VEXT
 interface "Wifi Antenna" as WIFI_ANT
 interface "Optical Isolators" as OPTO
 interface "XT30 Splitter" as XT30_SPLIT
+interface "XT30 Splitter" as BATTERY_SPLITTER
 
 OBC --> SDR : USB 3.0 A to USB 3.0 micro B
 LNA --> ANT : SMA-M to SMA-M
@@ -46,15 +47,16 @@ DCB --> LNA : SMA-M to SMA-M
 SDR --> DCB : SMA-M to SMA-M
 OBC --> WIFI_ANT : uFl to RP-SMA-M
 OBC --> USB : USB 2.0 A to USB Device
-PRIMARY_REG --> XT30_SPLIT : XT30-M to XT30-F
-XT30_SPLIT --> OBC : XT30-M to 5.5mm Barrel
-XT30_SPLIT --> LNA : XT30-M to USB 1.0 micro B
-BATT --> SWITCH : Lug to XT30
+PRIMARY_REG --> XT30_SPLIT : XT30-M to Cable
+XT30_SPLIT --> OBC : Cable to 5.5mm Barrel
+XT30_SPLIT --> LNA : Cable to USB 1.0 micro B
+BATTERY_SPLITTER --> SWITCH : Cable to XT30
 SWITCH --> PRIMARY_REG : XT30-M to XT30-F
 ST --> SWITCH : 3x 0.1 in Header F to 3x 0.1 in Header F
-OPTO --> OBC : 4x 0.1 in Header F to 4x 0.1 in Header F
-ST --> OPTO : 4x 0.1 in Header F to 4x 0.1 in Header F
+OPTO --> OBC : Cable to 4x 0.1 in Header F
+ST --> OPTO : 4x 0.1 in Header F to Cable
 PERSISTENT_REG --> ST : XT30-M to 2x 0.1 in Header F
-BATT --> PERSISTENT_REG : Lug to XT30
+BATTERY_SPLITTER --> PERSISTENT_REG : Cable to XT30
 OBC --> GPS : USB 2.0 A to USB Device
+BATT --> BATTERY_SPLITTER : Lug to Cable
 @enduml
