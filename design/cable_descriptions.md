@@ -31,7 +31,7 @@
 | Cable Type    | 22 AWG             |
 | Cable Length  | 6.0 in             |
 
-Use 2x, PC817 Optocouplers, 4x 1k resistors
+Use 2x, PC817 Optocouplers, 2x 1k resistors, 2x 330 resistors
 
 ```
 P1.1 = Tx
