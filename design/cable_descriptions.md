@@ -54,9 +54,9 @@ U2.2 = Cathod
 U2.3 = Emitter
 U2.4 = Collector
 
-R1 = 1k
+R1 = 330
 R2 = 1k
-R3 = 1k
+R3 = 330
 R4 = 1k
 
 P1.1 <-> R1.1
