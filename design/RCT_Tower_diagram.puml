@@ -1,0 +1,55 @@
+@startuml Radio Collar Tracker: Collared Lizard Wiring Diagram
+[Software Defined Radio] as SDR
+[On-Board Computer] as OBC
+[VHF Antenna] as ANT
+[LNA] as LNA
+[DC Block] as DCB
+[Data Drive] as USB
+[GPS Receiver] as GPS
+[Sleep Timer] as ST
+[Battery] as BATT
+[12V to 5V Regulator] as PRIMARY_REG
+[12V to 5V Regulator] as PERSISTENT_REG
+[12V to 3V3 Regulator] as ISOLATION_REG_ST
+[12V to 3V3 Regulator] as ISOLATION_REG_OBC
+[Switch] as SWITCH
+[Optoisolator] as OPTO
+[3A Fuse] as FUSE
+
+interface "Wifi Antenna" as WIFI_ANT
+interface "XT60 Splitter" as XT30_SPLIT
+interface "XT60 Splitter" as BATTERY_SPLITTER
+interface "XT60 Splitter" as SWITCHED_SPLITTER
+interface "4 Pin Header" as ST_OPTO_CONNECTOR
+interface "4 Pin Header" as OBC_OPTO_CONNECTOR
+interface "3 Pin Header" as OBC_FTDI_Connector
+
+
+OBC --> SDR : USB 3.0 A to USB 3.0 micro B
+LNA --> ANT : SMA-M to SMA-M
+DCB --> LNA : SMA-M to SMA-M
+SDR --> DCB : SMA-M to SMA-M
+OBC --> WIFI_ANT : uFl to RP-SMA-M
+OBC --> USB : USB 2.0 A to USB Device
+PRIMARY_REG --> XT30_SPLIT : Power_5V
+XT30_SPLIT --> OBC : Cable to 5.5mm Barrel
+XT30_SPLIT --> LNA : Cable to USB 1.0 micro B
+SWITCH --> SWITCHED_SPLITTER : Power_12V
+SWITCHED_SPLITTER --> PRIMARY_REG : Power_12V
+SWITCHED_SPLITTER --> ISOLATION_REG_OBC : Power_12V_22AWG
+OBC_FTDI_Connector <-- OBC : USB to FTDI Cable
+PERSISTENT_REG --> ST : Power_5V_22AWG to E5V & GND
+BATTERY_SPLITTER --> PERSISTENT_REG : Power_12V_22AWG
+OBC --> GPS : USB 2.0 A to USB Device
+ISOLATION_REG_ST --> ST_OPTO_CONNECTOR : 3v3 to Optoisolator_22AWG
+BATTERY_SPLITTER --> ISOLATION_REG_ST: Power_12V_22AWG
+ISOLATION_REG_OBC --> OBC_OPTO_CONNECTOR: 3v3 to Optoisolator_22AWG
+BATTERY_SPLITTER --> SWITCH : Power_12V_14AWG
+ST --> SWITCH: Control Line_22AWG_TBD
+ST --> ST_OPTO_CONNECTOR: Logic_UART_22AWG_CN10-35,37
+ST_OPTO_CONNECTOR --> OPTO: Opto Connector
+OBC_OPTO_CONNECTOR --> OPTO: Logic and Power
+OBC_FTDI_Connector --> OBC_OPTO_CONNECTOR: Logic_UART_22AWG
+BATT --> FUSE: Lug to Fuse_12V_14AWG
+FUSE --> BATTERY_SPLITTER: Fuse to Cable_12V_14AWG
+@enduml
